@@ -50,7 +50,8 @@ public class ExploreCaliforniaMicroserviceApplication implements CommandLineRunn
         tourPackageService.createTourPackage("NW", "Nature Watch");
         tourPackageService.createTourPackage("SC", "Snowboard Cali");
         tourPackageService.createTourPackage("TC", "Taste of California");
-        System.out.println("Number of tours packages =" + tourPackageService.total());
+        tourPackageService.lookup().forEach(System.out::println);
+        //System.out.println("Number of tours packages =" + tourPackageService.total());
 
         //Persist the Tours to the database
         importTours().forEach(t -> tourService.createTour(
@@ -86,7 +87,7 @@ public class ExploreCaliforniaMicroserviceApplication implements CommandLineRunn
             return new ObjectMapper().setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY).
                     readValue(TourFromFile.class.getResourceAsStream("/ExploreCalifornia.json"),
                             new TypeReference<List<TourFromFile>>() {
-                    });
+                            });
         }
     }
 

@@ -15,8 +15,11 @@ public class TourPackageService {
     }
 
     public TourPackage createTourPackage(String code, String name) {
-        return !tourPackageRepository.existsById(code) ?
-                tourPackageRepository.save(new TourPackage(code, name)) : null;
+        if (tourPackageRepository.existsById(code)) {
+            return tourPackageRepository.save(new TourPackage(code, name));
+        } else {
+            return null;
+        }
     }
 
     public Iterable<TourPackage> lookup() {
@@ -27,4 +30,3 @@ public class TourPackageService {
         return tourPackageRepository.count();
     }
 }
-

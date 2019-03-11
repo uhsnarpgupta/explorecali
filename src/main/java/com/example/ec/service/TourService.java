@@ -11,47 +11,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TourService {
-    private TourRepository tourRepository;
     private TourPackageRepository tourPackageRepository;
+    private TourRepository tourRepository;
 
     @Autowired
-    public TourService(TourRepository tourRepository, TourPackageRepository tourPackageRepository) {
-        this.tourRepository = tourRepository;
+    public TourService(TourPackageRepository tourPackageRepository, TourRepository tourRepository) {
         this.tourPackageRepository = tourPackageRepository;
+        this.tourRepository = tourRepository;
     }
 
-    /**
-     * Create a new Tour Object and persist it to the Database.
-     *
-     * @param title
-     * @param description
-     * @param blurb
-     * @param price
-     * @param duration
-     * @param bullets
-     * @param keywords
-     * @param tourPackageName
-     * @param difficulty
-     * @param region
-     * @return Tour Entity
-     */
-    public Tour createTour(String title, String description, String blurb, Integer price,
-                           String duration, String bullets,
-                           String keywords, String tourPackageName, Difficulty difficulty, Region region) {
-        TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName).orElseThrow(() ->
-                new RuntimeException("Tour package does not exist: " + tourPackageName));
+    public Tour createTour(String title, String description, String blurb, Integer price, String duration,
+                           String bullets, String keywords, String tourPackagName, Difficulty difficulty, Region region) {
+        TourPackage tourPackage = tourPackageRepository.findByName(tourPackagName)
+                .orElseThrow(() -> new RuntimeException("Tour package does not exists: " + tourPackagName));
+
         return tourRepository.save(new Tour(title, description, blurb, price, duration,
                 bullets, keywords, tourPackage, difficulty, region));
     }
 
-    /**
-     * Calculate the number of Tours in the Database.
-     *
-     * @return the total.
-     */
+    public Iterable<Tour> lookup() {
+        return tourRepository.findAll();
+    }
+
     public long total() {
         return tourRepository.count();
     }
-
 }
-

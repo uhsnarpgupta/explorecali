@@ -59,5 +59,4 @@ public class RatingDto {
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
-
 }
