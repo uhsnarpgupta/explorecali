@@ -7,7 +7,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+/**
+ * Tour Repository Interface
+ */
 public interface TourRepository extends PagingAndSortingRepository<Tour, Integer> {
+
     /**
      * Lookup a Page of Tours associated with a TourPackage
      *

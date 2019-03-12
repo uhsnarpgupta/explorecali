@@ -37,4 +37,5 @@ public class TourTest {
         assertThat(tour1, is(tour2));
         assertThat(tour1.hashCode(), is(tour2.hashCode()));
     }
+
 }
