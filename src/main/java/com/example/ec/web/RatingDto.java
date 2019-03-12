@@ -61,5 +61,4 @@ public class RatingDto extends ResourceSupport {
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
-
 }
