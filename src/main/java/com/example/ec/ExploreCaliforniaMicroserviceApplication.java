@@ -21,6 +21,7 @@ import static com.example.ec.ExploreCaliforniaMicroserviceApplication.TourFromFi
 @SpringBootApplication
 public class ExploreCaliforniaMicroserviceApplication implements CommandLineRunner {
 
+    //TEst cahneg
     @Autowired
     private TourService tourService;
 
