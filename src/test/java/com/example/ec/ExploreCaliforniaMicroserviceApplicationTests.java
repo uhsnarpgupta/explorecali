@@ -1,4 +1,4 @@
-package com.example.ec.explorecali;
+package com.example.ec;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

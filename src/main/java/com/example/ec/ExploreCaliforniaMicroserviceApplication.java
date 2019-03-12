@@ -12,21 +12,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.service.Contact;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.ec.ExploreCaliforniaMicroserviceApplication.TourFromFile.importTours;
+import static springfox.documentation.builders.PathSelectors.any;
 
 @SpringBootApplication
-public class ExploreCaliforniaMicroserviceApplication implements CommandLineRunner {
+@EnableSwagger2
+public class ExploreCaliforniaMicroserviceApplication /*implements CommandLineRunner*/ {
 
-    //TEst cahneg
-    @Autowired
+    /*@Autowired
     private TourService tourService;
 
     @Autowired
     private TourPackageService tourPackageService;
+    */
+
+    @Bean
+    public Docket docket() {
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(RequestHandlerSelectors.basePackage("com.example.ec")).paths(any()).build()
+                .apiInfo(new ApiInfo("Explore California API's",
+                        "API's for the Explore California Travel Service", "2.0", null,
+                        new Contact("LinkedIn Learning","https://www.linkedin.com/learning", ""),
+                        null, null, new ArrayList()));
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ExploreCaliforniaMicroserviceApplication.class, args);
@@ -39,7 +59,7 @@ public class ExploreCaliforniaMicroserviceApplication implements CommandLineRunn
      * @param strings
      * @throws Exception if problem occurs.
      */
-    @Override
+    /*@Override
     public void run(String... strings) throws Exception {
         //Create the default tour packages
         tourPackageService.createTourPackage("BC", "Backpack Cal");
@@ -68,7 +88,7 @@ public class ExploreCaliforniaMicroserviceApplication implements CommandLineRunn
         System.out.println("Number of tours =" + tourService.total());
 
 
-    }
+    }*/
 
     /**
      * Helper class to import the records in the ExploreCalifornia.json
@@ -90,5 +110,4 @@ public class ExploreCaliforniaMicroserviceApplication implements CommandLineRunn
                     });
         }
     }
-
 }
